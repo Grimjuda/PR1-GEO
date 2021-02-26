@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 4</title>
+</head>
+<body>
+    <button onclick="obtieneUbicacion()">Obtener ubicacion</button>
+<div id="mapa"></div>
+</body>
+<script>
+    mapa = document.getElementById("mapa");
+    function obtieneUbicacion(){
+ if(navigator.geolocation){
+     navigator.geolocation.getCurrentPosition(showPosition);
+ }
+ else{
+     demo.innerHTML = "El navegador no dispone de la capacidad de geolocalización"
+ }
+ function showPosition(posicion){
+     var coordenadas = posicion.coords.latitude + "," + posicion.coords.longitude;
+     var imagenurl = "https://maps.googleapis.com/maps/api/staticmap?center=" + coordenadas + "&zoom=20&size=800x800&key=AIzaSyAv-m46ebIV9fqkE2fIBGeWunmGmBm2R24";
+        
+        console.log(imagenurl);
+
+        document.getElementById("mapa").innerHTML = "<img src=" + imagenurl + ">";
+ }
+}
+</script>
+</html>
