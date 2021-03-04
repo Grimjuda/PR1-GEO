@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Prática 5</title>
+<style>
+    body{
+        background-color: darkgrey;
+    }
+    #map{
+        width: 100%;
+        height: 600px;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var infoC="<h1>Universidad DeLaSalle Bajío AC.</h1>"
+            informacion += "<p><strong>Dirección:</strong> Avenida Universidad 602, Lomas del Campestre, 37150 León, Gto, México.</p>"
+            informacion += "<p><strong>Teléfono:</strong>477 710 8500.</p>"
+    function iniciaMapa(){
+        const mapa = document.getElementById("map");
+        var propiedades = {
+            center: {
+                lat:21.151639,lng: -101.711598
+            },
+            zoom: 14
+        };
+        const map = new google.maps.Map(mapa,propiedades);
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(position =>{
+                console.log(position)
+        let posicion ={
+            lat:position.coords.latitude,lng: position.coords.longitude
+        }
+        let propiedadesMarcador ={
+            position: posicion,
+            map,
+            title: "Marcador" 
+        };
+        const marker = new google.maps.Marker(propiedadesMarcador);
+        map.setCenter(posicion);
+        const infowindow = new google.maps.InfoWindow({
+            content: infoC
+        });
+        marker.addListener("mouseover",()=>{
+            infowindow.open(map,marker);
+
+        });
+    });
+    }
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+  </script>
+  <!-- Google Maps -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv-m46ebIV9fqkE2fIBGeWunmGmBm2R24&callback=iniciaMapa"
+    async defer></script>
+</body>
+</html> 
