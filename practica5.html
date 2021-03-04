@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/dbd68e350e.js" crossorigin="anonymous"></script>
     <title>Prática 5</title>
 <style>
     body{
@@ -32,9 +33,10 @@
 
 
 <script>
-    var infoC="<h1>Universidad DeLaSalle Bajío AC.</h1>"
-            informacion += "<p><strong>Dirección:</strong> Avenida Universidad 602, Lomas del Campestre, 37150 León, Gto, México.</p>"
-            informacion += "<p><strong>Teléfono:</strong>477 710 8500.</p>"
+    var icon = "fas fa-store"
+    var infoC="<h1><i class="+icon+"></i>Tortilleria Rosita</h1"
+            infoC += "<p><strong>Dirección:</strong> Zinapécuaro 1706 Hidalgo 37220 León, Gto.México</p>"
+            infoC += "<p><strong>Teléfono:</strong>477 718 0167.</p>"
     function iniciaMapa(){
         const mapa = document.getElementById("map");
         var propiedades = {
