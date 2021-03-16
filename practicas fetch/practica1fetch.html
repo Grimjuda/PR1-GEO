@@ -16,7 +16,7 @@
 response.json().then (function(datos){
     datos.forEach(registro => {
         let nombre = document.createElement("p")
-        nombre.textContent = "Pais" + registro.country + ", Casos: " + registro.cases
+        nombre.textContent = "Pais: " + registro.country + ", Casos: " + registro.cases
        paises.appendChild(nombre);
     });
 })
