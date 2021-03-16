@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <title>Practica 1 Fetch</title>
+    <title>Practica 2 Fetch</title>
 </head>
 <body>
     <div id="paises" class="container">
@@ -23,10 +23,10 @@
         .then ( function(response){
 response.json().then (function(datos){
     datos.forEach(registro => {
-        let renglon = document.getElementById("div");
+        let renglon = document.createElement("div");
         paises.className = "row border tg-light";
         paises.appendChild(renglon);
-        let columna = document.getElementById("div");
+        let columna = document.createElement("div");
         columna.className = "col-12";
         renglon.appendChild(columna);
         
