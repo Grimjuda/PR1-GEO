@@ -22,48 +22,63 @@
     <div id="map"></div>
 
     <script>
-        var coordenadas = {
+      
+
+      var coordenadas = {
             lat: 0,
             lng: 0
         };
+
         var propiedades = {
             center: coordenadas,
             zoom: 2
-        }
+        };
 
-        function obtieneMarcadores() {
-            const markers = [{
+        function obtieneMarcadores(){
+
+            const markers = [
+                {
                     name: "México",
-                    longitude: "-99,1276",
+                    longitude: "-99.1276",
                     latitude: "19.427"
-                },
-                {
-                    name: "USA",
-                    longitude: "37.09024",
-                    latitude: "-95.712891"
-                },
-                {
-                    name: "Perú",
-                    longitude: "-9.189967",
-                    latitude: "-75.015152"
+                }, {
+                    name: "Brazil",
+                    longitude: "-47.9292",
+                    latitude: "-15.7801"
+                }, {
+                    name: "Spain",
+                    longitude: "-3.70327",
+                    latitude: "40.4167"
                 }
             ];
-            return markers;
-        }
 
-        function iniciaMapa() {
-            const map = new google.maps.Map(document.getElementById('map'), propiedades)
+            return markers;
+
+        };
+
+
+        function iniciaMapa(){
+
+            const map = new google.maps.Map(document.getElementById('map'),propiedades);
+
             const marcadores = obtieneMarcadores();
-         
-            for (marcador of marcadores) {
+
+            console.log(marcadores);
+
+            for( marcador of  marcadores){
+
                 let marker = new google.maps.Marker({
                     map: map,
                     position: new google.maps.LatLng(marcador.latitude, marcador.longitude),
                     title: marcador.name
-                })
+                });
+
             }
 
-        }
+
+        };
+
+    
     </script>
     <!-- Google Maps -->
     <script
