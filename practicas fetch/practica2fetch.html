@@ -32,7 +32,7 @@ response.json().then (function(datos){
         
         
         let nombre = document.createElement("p")
-        nombre.textContent = "Pais" + registro.country + ", Casos: " + registro.cases
+        nombre.textContent = "Pais: " + registro.country + ", Casos: " + registro.cases
         columna.appendChild(nombre);
     });
 })
