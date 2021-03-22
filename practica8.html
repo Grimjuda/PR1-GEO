@@ -65,7 +65,6 @@ const urlParams = new URLSearchParams(queryString);
 const idioma = urlParams.get('idioma');
 document.getElementById('idioma').value = idioma;
 var script = document.createElement('script');
-
 script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAv-m46ebIV9fqkE2fIBGeWunmGmBm2R24&callback=iniciaMapa&language='+idioma;
 document.head.appendChild(script);
 function iniciaMapa(){
@@ -91,6 +90,6 @@ function iniciaMapa(){
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
   </script>
   
-  
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjOfdGIg-7JiqjoTstMN9el4g-nLhxxA&callback=iniciaMapa" async defer></script>
 </body>
 </html>
