@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+
+        html, body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-md-6">
+              <div id="map"></div>
+          </div>
+          <div class="col-12 col-md-6">
+            <h1>Ciudades más pobladas de USA</h1>
+            <div id="datos"></div>
+          </div>
+        </div>
+    </div>
+    
+  
+    <script>
+  
+      function iniciaMapa(){
+  
+  
+        var coordenadas = {  lat:  41.16374642172844, lng:  -98.15954829962676 }; 
+  
+        var propiedades = {
+            center: coordenadas,
+            zoom: 4,
+            mapTypeId: 'terrain'
+        };
+  
+        map = new google.maps.Map(document.getElementById('map'),propiedades);
+  
+  
+  
+  
+  let url = 'https://datausa.io/api/data?drilldowns=Place&measures=Population&year=latest'
+        fetch(url)
+        .then( function(response){
+            
+            response.json().then( function(data){
+              var Estado = [];
+              Estado = data;
+              const sort_by = (field, reverse, primer) => {
+
+const key = primer ?
+  function(x) {
+    return primer(x[field])
+  } :
+  function(x) {
+    return x[field]
+  };
+
+reverse = !reverse ? 1 : -1;
+
+return function(a, b) {
+  return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+}
+}
+console.log(Estado.data.sort(sort_by('Population', true, parseInt)));
+               var Ciudades = Estado.data.slice(0,10)
+
+  console.log(Ciudades)
+              var datos = document.getElementById('datos');
+  
+              var tabla = `
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Número</th>
+                    <th scope="col">Ciudades</th>
+                
+                    <th scope="col">Habitantes</th>
+                  </tr>
+                </thead>
+                <tbody>
+              `;
+  
+               
+              var coordenadasVuelos=[
+              {"lat": 40.716478189765404, "lng": -74.00230014001949},
+              {"lat": 34.06684429459321, "lng": -118.25023704735281},
+              {"lat": 41.84464700845192, "lng":  -87.66334004296966},
+              {"lat": 29.759674440875987, "lng": -95.37249944819277},
+              {"lat": 33.473464706365995, "lng": -112.08939072624479},
+              {"lat": 39.99031502601824, "lng": -75.15305769333055},
+              {"lat": 29.466790417131964, "lng": -98.5213181631625},
+              {"lat": 32.83462614293058, "lng": -117.15022286071054},
+              {"lat": 32.77764141596651, "lng": -96.7988894904288},
+              {"lat": 37.31837769626549, "lng": -121.87513448813048}];
+              Ciudades.forEach((o, i) => o.id = i + 1);
+              for(i=0;i<=10;i++){
+              Ciudades.forEach((u, i) => u.coordenadas =coordenadasVuelos[i] );}
+              Ciudades.forEach( ciudad => {
+
+  console.log(ciudad)
+                
+  
+                var municipioCirculo = new google.maps.Circle({
+                  strokeColor: '#FFFF00',
+                  strokeOpacity : 0.8,
+                  strokeWeight : 2,
+                  fillColor: '#572364',
+                  fillOpacity : 0.35,
+                  map: map,
+                  center: ciudad.coordenadas,
+                  radius: Math.sqrt(ciudad.Population) * 10
+                });
+  
+                tabla += `
+                  <tr>
+                    <th scope="row">${ ciudad.id}</th>
+                    <td>${ciudad.Place}</td>
+                    <td>${ ciudad.Population}</td>
+                  </tr>
+                `;
+  
+  
+              });
+  
+              var vuelosTrazo = new google.maps.Polyline({
+                path: coordenadasVuelos,
+                geodesic:true,
+                strokeColor: '#CCCCCC',
+                strokeOpacity: 0.5,
+                strokeColor: 1
+              });
+  
+              vuelosTrazo.setMap(map);
+  
+              tabla +=`  
+                  </tbody>
+                  </table>`;
+  
+              datos.innerHTML = tabla;
+  
+            });
+        });
+  
+  
+      }
+  
+  
+    </script>
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv-m46ebIV9fqkE2fIBGeWunmGmBm2R24&libraries=places&callback=iniciaMapa" async defer></script>
+</body>
+</html>
