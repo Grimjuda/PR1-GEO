@@ -1,3 +1,4 @@
+
 const formaingresar = document.getElementById('formaingresar');
 formaingresar.addEventListener('submit',(e)=>{
 e.preventDefault();
@@ -30,10 +31,3 @@ switch (codigo){
 }
 return mensaje;
 }
-const salir = document.getElementById('salir');
-salir.addEventListener('click',(e)=>{
-    e.preventDefault();
-    auth.signOut().then(() =>{
-        alert('El usuario ha salido del sistema')
-    })
-});

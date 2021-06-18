@@ -22,7 +22,7 @@
 </head>
 <body>
 
-
+    <form id="form">
     <div class="container-fluid">
         <div class="row">
           <div class="col-12 col-md-6">
@@ -30,15 +30,45 @@
           </div>
           <div class="col-12 col-md-6">
             <h1>Ciudades más pobladas de USA</h1>
+            <div class = "col-6 text-center">
+                <select name = "idioma" id = "idioma" class = "form-control" onchange = "this.form.submit()">
+                    
+                    <option value = "es" >Español</option>
+                    <option value = "en">Inglés</option>
+                    <option value = "it">Italiano</option>
+                    <option value = "zh">Chino</option>
+                    <option value = "ja">Japonés</option>
+                </select>
+            </div>
             <div id="datos"></div>
             <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" id="salir">Cerrar sesión</button>
           </div>
         </div>
     </div>
-    
+    </form>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
   
     <script>
-  
+  const queryString = window.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+
+let idioma = urlParams.get('idioma');
+
+if(!idioma) {
+  idioma = 'es';
+  document.getElementById('idioma').value = idioma;
+  document.querySelector('#form').submit();
+}
+
+document.getElementById('idioma').value = idioma;
+var script = document.createElement('script');
+
+script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAlAfjkEyZc3T2vLRARL5f4QYJj3ZPai6Q&callback=iniciaMapa&language=' + idioma;
+document.head.appendChild(script);
       function iniciaMapa(){
         var styledMapType = new google.maps.StyledMapType(
                 [
@@ -372,12 +402,16 @@ console.log(Estado.data.sort(sort_by('Population', true, parseInt)));
               {"lat": 37.31837769626549, "lng": -121.87513448813048}];
               Ciudades.forEach((o, i) => o.id = i + 1);
               for(i=0;i<=10;i++){
-              Ciudades.forEach((u, i) => u.coordenadas =coordenadasVuelos[i] );}
+              Ciudades.forEach((u, i) => u.coordenadas =coordenadasVuelos[i] );
+            
+            
+            }
+
               Ciudades.forEach( ciudad => {
 
                 let marcador = new google.maps.Marker({
                     map : map,
-                    position: ciudad
+                    position: ciudad.coordenadas
                    
                 });
                 
@@ -425,17 +459,43 @@ console.log(Estado.data.sort(sort_by('Population', true, parseInt)));
   
   
       }
-  
-  
+       // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCHYAm3kVLpoeZvK7ZFFsS-1C3NeDRlKCo",
+    authDomain: "fir-auth-a09ca.firebaseapp.com",
+    projectId: "fir-auth-a09ca",
+    storageBucket: "fir-auth-a09ca.appspot.com",
+    messagingSenderId: "254537173085",
+    appId: "1:254537173085:web:bca6b46da54beaec27e5b4"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+      window.onload = function () {
+    auth.onAuthStateChanged( user =>{
+        if (user){
+            console.log(user);
+        } else {
+            window.location="login.html";
+        }
+    })
+};
+      const salir = document.getElementById('salir');
+salir.addEventListener('click',(e)=>{
+    e.preventDefault();
+    auth.signOut().then(() =>{
+        
+    })
+});
     </script>
 
 
 
-<script src="autorizacion.js"></script>
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv-m46ebIV9fqkE2fIBGeWunmGmBm2R24&libraries=places&callback=iniciaMapa" async defer></script>
+    
 </body>
 </html>
