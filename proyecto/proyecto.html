@@ -11,6 +11,7 @@
         html, body {
             margin: 0px;
             padding: 0px;
+            background-color: powderblue
         }
 
         #map {
@@ -374,7 +375,11 @@ console.log(Estado.data.sort(sort_by('Population', true, parseInt)));
               Ciudades.forEach((u, i) => u.coordenadas =coordenadasVuelos[i] );}
               Ciudades.forEach( ciudad => {
 
-  console.log(ciudad)
+                let marcador = new google.maps.Marker({
+                    map : map,
+                    position: ciudad
+                   
+                });
                 
   
                 var municipioCirculo = new google.maps.Circle({
